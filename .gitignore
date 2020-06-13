@@ -1,3 +1,9 @@
 Pipfile
 Pipfile.lock
 venv_product_management/
+
+product_management/product_management/settings/local.py
+
+.idea
+
+product_management/db.sqlite3
