@@ -1,0 +1,37 @@
+{% extends 'product_register/base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+
+{% if user.is_authenticated %}
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center" style="background-color: #000000b3; padding: 10px; color: white; ">
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    {{form|crispy }}
+
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+                Submit</button>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream"></i> Back to list
+            </a>
+        </div>
+    </div>
+
+</form>
+
+{% else %}
+
+Welcome
+
+{% endif %}
+{% endblock content %}

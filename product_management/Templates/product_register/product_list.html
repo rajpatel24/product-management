@@ -1,0 +1,74 @@
+{% extends "product_register/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="page-section" id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase" style="text-align: center;">Welcome {{ user.get_username }}</h2>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Category</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Short Description</td>
+            <td>Long Description</td>
+            <td>
+                <a href="{% url 'product_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in product_list %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.short_description}}</td>
+                <td>{{product.long_description}}</td>
+                <td>
+                    <a href="{% url 'product_update' product.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+
+                    <form action="{% url 'product_delete' product.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+
+<section class="page-section" id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase" style="text-align: center;">Welcome</h2>
+          <h3 class="section-subheading text-muted">Explore the unexplored</h3>
+
+            <h4>Please <a href="{% url 'account_login' %">Login</a> in order to deal with products</h4>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endif %}
+{% endblock content %}
